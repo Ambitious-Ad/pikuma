@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\wolf.exe\Desktop\dev stuff\SDL3-devel-3.2.20-VC\SDL3-3.2.20\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\wolf.exe\source\repos\pikuma\pikuma\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\wolf.exe\Desktop\dev stuff\SDL3_image-3.2.4\include;C:\Users\wolf.exe\Desktop\dev stuff\SDL3-devel-3.2.20-VC\SDL3-3.2.20\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\wolf.exe\Desktop\dev stuff\SDL3_image-3.2.4\lib\x64;C:\Users\wolf.exe\source\repos\pikuma\pikuma\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,7 +110,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,6 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
