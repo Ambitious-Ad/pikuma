@@ -1,11 +1,13 @@
-#include "Renderer.h"
+#include "Game.h"
 
 int main(int argc, char* args[])
 {
-	Renderer renderer;
 
-	renderer.run();
-	renderer.close();
+	Game game;
 
+	game.Initialize();
+	game.Run();
+	game.Destroy();
+	
 	return 0;
 }
