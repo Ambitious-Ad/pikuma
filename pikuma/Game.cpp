@@ -12,6 +12,11 @@ Game::~Game()
 	Logger::Log("Game destructor called!");
 }
 
+void Game::Setup()
+{
+
+}
+
 void Game::Initialize()
 {
 	if (!SDL_Init(SDL_INIT_VIDEO))
@@ -54,6 +59,7 @@ void Game::Initialize()
 
 void Game::Run()
 {
+	Setup();
 	while (isRunning)
 	{
 		ProcessInput();
@@ -85,9 +91,4 @@ void Game::Destroy()
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-}
-
-void Game::Setup()
-{
-
 }
