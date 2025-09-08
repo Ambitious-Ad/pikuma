@@ -1,3 +1,5 @@
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 #include "Game.h"
 #include "Logger.h"
 
@@ -65,25 +67,60 @@ void Game::Run()
 		ProcessInput();
 		Update();
 		Render();
+
+		uint32_t frameEnd = SDL_GetTicks();
+		int frameDuration = frameEnd - frameStart;
+		if (frameDuration < millisecsPerFrame)
+		{
+			SDL_Delay(millisecsPerFrame - frameDuration);
+		}
 	}
 }
 
 void Game::ProcessInput()
 {
-
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_EVENT_KEY_DOWN)
+		{
+			if (event.key.key == SDLK_ESCAPE)
+			{
+				isRunning = false;
+			}
+		}
+		switch (event.type)
+		{
+		case SDL_EVENT_QUIT:
+			isRunning = false;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Game::Update()
 {
+	int timeToWait = millisecsPerFrame - (SDL_GetTicks() - millisecsPreviousFrame);
+	double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0f;
 
+	millisecsPreviousFrame = SDL_GetTicks();
 }
 
 void Game::Render()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 21, 21, 255, 255);
 	SDL_RenderClear(renderer);
 
+	SDL_Surface* surface = IMG_Load("./sprites/characters/player.png");
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_DestroySurface(surface);
 
+	SDL_FRect dstRect = { 32, 32, 32, 32 };
+	SDL_FRect srcRect = { playerPosition.x, playerPosition.y, 32, 32 };
+	SDL_RenderTexture(renderer, texture, &srcRect, &dstRect);
+
+	SDL_RenderPresent(renderer);
 }
 
 void Game::Destroy()
